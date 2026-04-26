@@ -24,20 +24,19 @@ const initialSeed = sessionCheckpoint ||
         score: savedLevelState.score,
         speedMs: savedLevelState.speedMs,
         selectedSkin: savedLevelState.selectedSkin,
-        unlockedSkins: savedLevelState.unlockedSkins,
         counters: savedLevelState.counters,
       }
     : {
         level: 1,
         score: 0,
         speedMs: BASE_SPEED_MS,
-        selectedSkin: "neon",
-        unlockedSkins: ["neon"],
+        selectedSkin: "neo",
         counters: { banana: 0, cherry: 0, diamond: 0 },
       });
 
 ui.init(savedLevelState, () => {
   game.start(initialSeed);
+  ui.switchShopTab("skins");
 });
 
 bindControls({
@@ -48,6 +47,7 @@ bindControls({
   onToggleShop: () => {
     shopOpen = !shopOpen;
     ui.toggleShop(shopOpen);
+    if (shopOpen) ui.switchShopTab("skins");
   },
   onCloseShop: () => {
     shopOpen = false;
@@ -55,6 +55,7 @@ bindControls({
   },
   onBuySkin: (skinId) => game.buyOrSelectSkin(skinId),
   onExchange: (type) => game.exchangeCollectible(type),
+  onSwitchTab: (tab) => ui.switchShopTab(tab),
 });
 
 window.addEventListener("resize", () => game.updateCanvasSize());
