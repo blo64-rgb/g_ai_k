@@ -46,8 +46,7 @@ export class Game {
       score: seed.score ?? 0,
       level: seed.level ?? 1,
       speedMs: seed.speedMs ?? BASE_SPEED_MS,
-      selectedSkin: seed.selectedSkin ?? "neon",
-      unlockedSkins: seed.unlockedSkins ?? ["neon"],
+      selectedSkin: seed.selectedSkin ?? "neo",
       counters: {
         banana: seed.counters?.banana ?? 0,
         cherry: seed.counters?.cherry ?? 0,
@@ -56,7 +55,7 @@ export class Game {
     };
     this.levelStartSnapshot = cloneState(this.state);
     this.resumeSnapshot = cloneState(this.state);
-    this.currentSkin = SNAKE_SKINS[this.state.selectedSkin] ?? SNAKE_SKINS.neon;
+    this.currentSkin = SNAKE_SKINS[this.state.selectedSkin] ?? SNAKE_SKINS.neo;
   }
 
   start(seed) {
@@ -83,8 +82,7 @@ export class Game {
       level: 1,
       score: 0,
       speedMs: BASE_SPEED_MS,
-      selectedSkin: "neon",
-      unlockedSkins: ["neon"],
+      selectedSkin: "neo",
       counters: { banana: 0, cherry: 0, diamond: 0 },
     });
   }
@@ -100,13 +98,8 @@ export class Game {
   }
 
   buyOrSelectSkin(skinId) {
+    // Skin switcher section: applies selected previewed skin.
     if (!SNAKE_SKINS[skinId]) return;
-    const owned = this.state.unlockedSkins.includes(skinId);
-    if (!owned) {
-      if (this.state.score < 1000) return;
-      this.state.score -= 1000;
-      this.state.unlockedSkins.push(skinId);
-    }
     this.state.selectedSkin = skinId;
     this.currentSkin = SNAKE_SKINS[skinId];
     this.persistProgress();
@@ -115,6 +108,7 @@ export class Game {
   }
 
   exchangeCollectible(type) {
+    // Exchange section: converts collectible counters into coins.
     const currentAmount = this.state.counters[type];
     const rate = EXCHANGE_RATES[type];
     if (!currentAmount || !rate) return;
@@ -300,6 +294,45 @@ export class Game {
     this.ctx.arc(eye1.x + pupilOffsetX, eye1.y + pupilOffsetY, pupilRadius, 0, Math.PI * 2);
     this.ctx.arc(eye2.x + pupilOffsetX, eye2.y + pupilOffsetY, pupilRadius, 0, Math.PI * 2);
     this.ctx.fill();
+    this.ctx.restore();
+
+    if (this.state.selectedSkin === "clown") this.drawClownCap(x, y, size, forward);
+    if (this.state.selectedSkin === "hardpunk") this.drawHardPunkSpikes(x, y, size, forward, side);
+  }
+
+  drawClownCap(x, y, size, forward) {
+    const topX = x + size / 2 + forward.x * size * 0.24;
+    const topY = y + size / 2 + forward.y * size * 0.24;
+    this.ctx.save();
+    this.ctx.fillStyle = "#ff2e63";
+    this.ctx.beginPath();
+    this.ctx.moveTo(topX, topY - size * 0.32);
+    this.ctx.lineTo(topX - size * 0.22, topY + size * 0.02);
+    this.ctx.lineTo(topX + size * 0.22, topY + size * 0.02);
+    this.ctx.closePath();
+    this.ctx.fill();
+    this.ctx.fillStyle = "#ffe066";
+    this.ctx.beginPath();
+    this.ctx.arc(topX, topY - size * 0.35, size * 0.06, 0, Math.PI * 2);
+    this.ctx.fill();
+    this.ctx.restore();
+  }
+
+  drawHardPunkSpikes(x, y, size, forward, side) {
+    const baseX = x + size / 2 - forward.x * size * 0.1;
+    const baseY = y + size / 2 - forward.y * size * 0.1;
+    this.ctx.save();
+    this.ctx.fillStyle = "#ff0077";
+    for (let i = -1; i <= 1; i += 1) {
+      const ox = side.x * size * 0.16 * i;
+      const oy = side.y * size * 0.16 * i;
+      this.ctx.beginPath();
+      this.ctx.moveTo(baseX + ox, baseY + oy - size * 0.26);
+      this.ctx.lineTo(baseX + ox - size * 0.06, baseY + oy - size * 0.06);
+      this.ctx.lineTo(baseX + ox + size * 0.06, baseY + oy - size * 0.06);
+      this.ctx.closePath();
+      this.ctx.fill();
+    }
     this.ctx.restore();
   }
 }
