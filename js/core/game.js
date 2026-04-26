@@ -1,10 +1,11 @@
 import {
   BASE_SPEED_MS,
-  COLORS,
+  EXCHANGE_RATES,
   GRID_SIZE,
   LEVEL_UP_EVERY,
   MAX_LEVEL,
   MIN_SPEED_MS,
+  SNAKE_SKINS,
   SPEED_STEP_MS,
 } from "../config/constants.js";
 import { createFood } from "./food.js";
@@ -45,6 +46,8 @@ export class Game {
       score: seed.score ?? 0,
       level: seed.level ?? 1,
       speedMs: seed.speedMs ?? BASE_SPEED_MS,
+      selectedSkin: seed.selectedSkin ?? "neon",
+      unlockedSkins: seed.unlockedSkins ?? ["neon"],
       counters: {
         banana: seed.counters?.banana ?? 0,
         cherry: seed.counters?.cherry ?? 0,
@@ -52,6 +55,8 @@ export class Game {
       },
     };
     this.levelStartSnapshot = cloneState(this.state);
+    this.resumeSnapshot = cloneState(this.state);
+    this.currentSkin = SNAKE_SKINS[this.state.selectedSkin] ?? SNAKE_SKINS.neon;
   }
 
   start(seed) {
@@ -63,16 +68,25 @@ export class Game {
     this.ui.togglePauseLabel(false);
     this.updateCanvasSize();
     this.ui.updateStats(this.state);
+    this.ui.renderSkins(this.state);
+    this.persistProgress();
     requestAnimationFrame((t) => this.loop(t));
   }
 
   restartFromCheckpoint() {
-    this.start(this.levelStartSnapshot);
+    this.start(this.resumeSnapshot);
   }
 
   resetAllProgress() {
     clearAllProgress();
-    this.start({ level: 1, score: 0, speedMs: BASE_SPEED_MS, counters: { banana: 0, cherry: 0, diamond: 0 } });
+    this.start({
+      level: 1,
+      score: 0,
+      speedMs: BASE_SPEED_MS,
+      selectedSkin: "neon",
+      unlockedSkins: ["neon"],
+      counters: { banana: 0, cherry: 0, diamond: 0 },
+    });
   }
 
   setDirection(direction) {
@@ -83,6 +97,33 @@ export class Game {
     if (this.gameOver) return;
     this.paused = !this.paused;
     this.ui.togglePauseLabel(this.paused);
+  }
+
+  buyOrSelectSkin(skinId) {
+    if (!SNAKE_SKINS[skinId]) return;
+    const owned = this.state.unlockedSkins.includes(skinId);
+    if (!owned) {
+      if (this.state.score < 1000) return;
+      this.state.score -= 1000;
+      this.state.unlockedSkins.push(skinId);
+    }
+    this.state.selectedSkin = skinId;
+    this.currentSkin = SNAKE_SKINS[skinId];
+    this.persistProgress();
+    this.ui.updateStats(this.state);
+    this.ui.renderSkins(this.state);
+  }
+
+  exchangeCollectible(type) {
+    const currentAmount = this.state.counters[type];
+    const rate = EXCHANGE_RATES[type];
+    if (!currentAmount || !rate) return;
+    this.state.counters[type] = 0;
+    this.state.score += currentAmount * rate;
+    this.updateLevelByScore();
+    this.persistProgress();
+    this.ui.updateStats(this.state);
+    this.ui.renderSkins(this.state);
   }
 
   updateCanvasSize() {
@@ -119,6 +160,7 @@ export class Game {
 
     if (this.hasWallCollision(head) || this.snake.hitsSelf()) {
       this.gameOver = true;
+      this.persistProgress();
       this.ui.showGameOver(this.state);
       return;
     }
@@ -136,7 +178,9 @@ export class Game {
     this.snake.grow(1);
     this.food = createFood(this.gridSize, this.snake.segments);
     this.updateLevelByScore();
+    this.persistProgress();
     this.ui.updateStats(this.state);
+    this.ui.renderSkins(this.state);
   }
 
   updateLevelByScore() {
@@ -151,8 +195,13 @@ export class Game {
         counters: this.state.counters,
       });
       this.levelStartSnapshot = cloneState(this.state);
-      saveSessionCheckpoint(this.levelStartSnapshot);
     }
+  }
+
+  persistProgress() {
+    this.resumeSnapshot = cloneState(this.state);
+    saveLevelState(this.resumeSnapshot);
+    saveSessionCheckpoint(this.resumeSnapshot);
   }
 
   hasWallCollision(head) {
@@ -204,9 +253,9 @@ export class Game {
     this.snake.segments.forEach((segment, index) => {
       const isHead = index === 0;
       this.ctx.save();
-      this.ctx.fillStyle = isHead ? COLORS.snakeHead : COLORS.snake;
+      this.ctx.fillStyle = isHead ? this.currentSkin.head : this.currentSkin.body;
       this.ctx.shadowBlur = 16;
-      this.ctx.shadowColor = COLORS.snake;
+      this.ctx.shadowColor = this.currentSkin.body;
       this.ctx.fillRect(segment.x * this.cellSize, segment.y * this.cellSize, this.cellSize, this.cellSize);
       this.ctx.restore();
       if (isHead) this.drawSnakeHeadDetails(segment);
@@ -236,7 +285,7 @@ export class Game {
     };
 
     this.ctx.save();
-    this.ctx.fillStyle = "#f2feff";
+    this.ctx.fillStyle = this.currentSkin.eye;
     this.ctx.shadowBlur = 6;
     this.ctx.shadowColor = "#b7ffff";
     this.ctx.beginPath();
