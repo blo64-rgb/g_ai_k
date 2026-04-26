@@ -43,10 +43,24 @@ body {
 .panel {
   background: var(--glass);
   border: 1px solid var(--glass-border);
-  border-radius: 16px;
+  border-radius: 8px;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 8px 26px rgba(0, 0, 0, 0.35);
+}
+
+.top-bar {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(4px, 0.8vw, 8px);
+}
+
+.menu-panel {
+  width: clamp(32px, 8vw, 44px);
+  min-width: clamp(32px, 8vw, 44px);
+  display: grid;
+  place-items: center;
+  padding: 2px;
 }
 
 .stats-panel {
@@ -58,18 +72,11 @@ body {
 
 .stat {
   padding: clamp(2px, 0.55vw, 4px) 3px;
-  border-radius: 8px;
+  border-radius: 5px;
   background: rgba(0, 0, 0, 0.2);
   display: grid;
   gap: 2px;
   text-align: center;
-}
-
-.stat-coins {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
 }
 
 .stat span {
@@ -103,7 +110,7 @@ body {
 #gameCanvas {
   width: 100%;
   height: 100%;
-  border-radius: 16px;
+  border-radius: 8px;
   border: 1px solid rgba(0, 255, 204, 0.35);
   background: rgba(5, 5, 10, 0.8);
   box-shadow: inset 0 0 30px rgba(0, 255, 204, 0.12);
@@ -118,9 +125,10 @@ body {
 }
 
 .shop-inline-btn {
-  width: clamp(22px, 4.8vw, 28px);
-  height: clamp(22px, 4.8vw, 28px);
-  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  min-height: clamp(28px, 6vw, 40px);
+  border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.22);
   background: rgba(12, 12, 24, 0.56);
   color: var(--text-main);
@@ -164,7 +172,7 @@ body {
 
 .btn {
   border: 1px solid var(--glass-border);
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 10px 14px;
   min-width: 88px;
   color: var(--text-main);
@@ -192,7 +200,7 @@ body {
   font-size: clamp(17px, 4.8vw, 26px);
   font-weight: 500;
   color: rgba(232, 248, 255, 0.9);
-  border-radius: 12px;
+  border-radius: 8px;
   box-shadow: 0 0 6px rgba(0, 255, 204, 0.25);
 }
 
@@ -209,7 +217,7 @@ body {
   display: inline-grid;
   place-items: center;
   font-size: clamp(16px, 4vw, 22px);
-  border-radius: 12px;
+  border-radius: 8px;
 }
 
 .ghost-btn {
@@ -264,7 +272,7 @@ body {
 .drawer-card {
   width: min(82vw, 340px);
   max-height: min(78vh, 620px);
-  border-radius: 14px;
+  border-radius: 8px;
   padding: 10px;
   overflow: auto;
 }
@@ -328,6 +336,11 @@ body {
     grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 3px;
     padding: 2px;
+  }
+
+  .top-bar {
+    grid-template-columns: 34px 1fr;
+    gap: 4px;
   }
 
   .drawer-card {
