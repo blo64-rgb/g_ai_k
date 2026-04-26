@@ -98,7 +98,7 @@ body {
 .controls-panel {
   height: 30mm;
   min-height: 30mm;
-  padding: 5px 10px;
+  padding: 2mm;
   display: flex;
   align-items: center;
 }
@@ -121,13 +121,11 @@ body {
 
 .control-group.vertical {
   justify-items: start;
-  padding-left: 2px;
 }
 
 .control-group.horizontal {
   justify-items: end;
   grid-template-columns: 1fr;
-  padding-right: 2px;
 }
 
 .control-group.center {
