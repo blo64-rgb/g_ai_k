@@ -39,3 +39,21 @@ export const STORAGE_KEYS = {
   levelState: "snake.levelState",
   sessionCheckpoint: "snake.sessionCheckpoint",
 };
+
+// --- Shop and exchange config ---
+export const SKIN_PRICE = 1000;
+
+export const SNAKE_SKINS = {
+  neon: { id: "neon", name: "Neon", body: "#00ffcc", head: "#5ffff0", eye: "#f2feff" },
+  plasma: { id: "plasma", name: "Plasma", body: "#b388ff", head: "#d6b3ff", eye: "#ffffff" },
+  ember: { id: "ember", name: "Ember", body: "#ff7a18", head: "#ffb067", eye: "#fff4e6" },
+  frost: { id: "frost", name: "Frost", body: "#70d6ff", head: "#b5ecff", eye: "#f8ffff" },
+};
+
+// Exchange ratio based on original reward value:
+// 1 banana = 2 points, 1 cherry = 3 points, 1 diamond = 10 points.
+export const EXCHANGE_RATES = {
+  banana: 2,
+  cherry: 3,
+  diamond: 10,
+};
