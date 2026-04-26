@@ -11,6 +11,13 @@ import { createFood } from "./food.js";
 import { Snake } from "./snake.js";
 import { clearAllProgress, saveLevelState, saveSessionCheckpoint } from "../services/storage.js";
 
+const FOOD_ICONS = {
+  apple: "🍎",
+  banana: "🍌",
+  cherry: "🍒",
+  diamond: "💎",
+};
+
 function cloneState(state) {
   if (typeof structuredClone === "function") return structuredClone(state);
   return JSON.parse(JSON.stringify(state));
@@ -178,11 +185,18 @@ export class Game {
   }
 
   drawFood() {
+    const icon = FOOD_ICONS[this.food.type] || "🍎";
+    const centerX = this.food.x * this.cellSize + this.cellSize / 2;
+    const centerY = this.food.y * this.cellSize + this.cellSize / 2;
+    const fontSize = Math.floor(this.cellSize * 0.9);
+
     this.ctx.save();
-    this.ctx.fillStyle = this.food.color;
     this.ctx.shadowBlur = 18;
     this.ctx.shadowColor = this.food.color;
-    this.ctx.fillRect(this.food.x * this.cellSize, this.food.y * this.cellSize, this.cellSize, this.cellSize);
+    this.ctx.font = `${fontSize}px "Segoe UI Emoji", "Apple Color Emoji", sans-serif`;
+    this.ctx.textAlign = "center";
+    this.ctx.textBaseline = "middle";
+    this.ctx.fillText(icon, centerX, centerY);
     this.ctx.restore();
   }
 
