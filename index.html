@@ -10,15 +10,16 @@
   <body>
     <div class="app">
       <header class="panel stats-panel">
-        <div class="stat"><span>Очки</span><strong id="scoreValue">0</strong></div>
-        <div class="stat"><span>Уровень</span><strong id="levelValue">1/100</strong></div>
-        <div class="stat"><span>Скорость</span><strong id="speedValue">0</strong></div>
+        <div class="stat"><span aria-label="Монеты">🪙</span><strong id="scoreValue">0</strong></div>
+        <div class="stat"><span>LVL</span><strong id="levelValue">1/100</strong></div>
+        <div class="stat"><span aria-label="Скорость">👟</span><strong id="speedValue">0</strong></div>
         <div class="stat"><span aria-label="Бананы">🍌</span><strong id="bananaValue">0</strong></div>
         <div class="stat"><span aria-label="Вишни">🍒</span><strong id="cherryValue">0</strong></div>
         <div class="stat"><span aria-label="Бриллианты">💎</span><strong id="diamondValue">0</strong></div>
       </header>
 
       <main class="board-wrap">
+        <button class="shop-fab" id="shopToggleBtn" aria-label="Открыть магазин">☰</button>
         <canvas id="gameCanvas" aria-label="Игровое поле змейки"></canvas>
       </main>
 
@@ -52,6 +53,33 @@
         </div>
       </div>
     </div>
+
+    <aside class="side-drawer hidden" id="shopDrawer">
+      <div class="panel drawer-card">
+        <div class="drawer-header">
+          <h3>Shop</h3>
+          <button class="btn ghost-btn drawer-close" id="shopCloseBtn" aria-label="Закрыть магазин">✕</button>
+        </div>
+
+        <section class="drawer-section">
+          <h4>Скины змейки (1000 🪙)</h4>
+          <div class="skin-list" id="skinList">
+            <button class="btn skin-btn" data-skin-id="plasma">Plasma</button>
+            <button class="btn skin-btn" data-skin-id="ember">Ember</button>
+            <button class="btn skin-btn" data-skin-id="frost">Frost</button>
+          </div>
+        </section>
+
+        <section class="drawer-section">
+          <h4>Обмен на очки</h4>
+          <div class="exchange-list">
+            <button class="btn exchange-btn" data-exchange="banana">🍌 → 🪙</button>
+            <button class="btn exchange-btn" data-exchange="cherry">🍒 → 🪙</button>
+            <button class="btn exchange-btn" data-exchange="diamond">💎 → 🪙</button>
+          </div>
+        </section>
+      </div>
+    </aside>
 
     <script type="module" src="./js/main.js"></script>
   </body>
