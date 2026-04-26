@@ -299,6 +299,24 @@ body {
   margin-top: 12px;
 }
 
+.drawer-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.drawer-tab {
+  min-width: 0;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+.drawer-tab.active {
+  border-color: rgba(0, 255, 204, 0.55);
+  box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+}
+
 .drawer-section h4 {
   margin: 0 0 8px;
   font-size: 13px;
@@ -319,12 +337,80 @@ body {
   text-align: left;
 }
 
-.skin-btn.owned {
+.skin-btn.active {
+  box-shadow: 0 0 12px rgba(0, 255, 204, 0.4);
   border-color: rgba(0, 255, 204, 0.55);
 }
 
-.skin-btn.active {
-  box-shadow: 0 0 12px rgba(0, 255, 204, 0.4);
+.skin-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.skin-name {
+  font-size: 13px;
+}
+
+.skin-preview {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  width: 64px;
+  height: 22px;
+}
+
+.seg {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+}
+
+.skin-preview.clown .body {
+  background: #ffd166;
+}
+.skin-preview.clown .head {
+  background: #ff7aa2;
+}
+.skin-preview.clown .cap {
+  position: absolute;
+  right: 1px;
+  top: -7px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 9px solid #ff2e63;
+}
+
+.skin-preview.hardpunk .body {
+  background: #5e5e72;
+}
+.skin-preview.hardpunk .head {
+  background: #9aa0b5;
+}
+.skin-preview.hardpunk .spike {
+  position: absolute;
+  top: -5px;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 6px solid #ff0077;
+}
+.skin-preview.hardpunk .s1 {
+  right: 7px;
+}
+.skin-preview.hardpunk .s2 {
+  right: 15px;
+}
+
+.skin-preview.neo .body {
+  background: #00ffcc;
+}
+.skin-preview.neo .head {
+  background: #5ffff0;
 }
 
 @media (max-width: 420px) {
