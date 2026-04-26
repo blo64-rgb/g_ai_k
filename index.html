@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Neon Snake Telegram WebApp</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  </head>
+  <body>
+    <div class="app">
+      <header class="panel stats-panel">
+        <div class="stat"><span>Очки</span><strong id="scoreValue">0</strong></div>
+        <div class="stat"><span>Уровень</span><strong id="levelValue">1/100</strong></div>
+        <div class="stat"><span>Скорость</span><strong id="speedValue">0</strong></div>
+        <div class="stat"><span>Бананы</span><strong id="bananaValue">0</strong></div>
+        <div class="stat"><span>Вишни</span><strong id="cherryValue">0</strong></div>
+        <div class="stat"><span>Бриллианты</span><strong id="diamondValue">0</strong></div>
+      </header>
+
+      <main class="board-wrap">
+        <canvas id="gameCanvas" aria-label="Игровое поле змейки"></canvas>
+      </main>
+
+      <section class="panel controls-panel">
+        <div class="controls-grid">
+          <div class="control-group vertical">
+            <button class="btn neon-btn" data-direction="up">Вверх</button>
+            <button class="btn neon-btn" data-direction="down">Вниз</button>
+          </div>
+
+          <div class="control-group center">
+            <button class="btn action-btn" id="pauseBtn">Пауза</button>
+            <button class="btn action-btn" id="restartBtn">Рестарт</button>
+          </div>
+
+          <div class="control-group horizontal">
+            <button class="btn neon-btn" data-direction="left">Влево</button>
+            <button class="btn neon-btn" data-direction="right">Вправо</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="overlay hidden" id="gameOverOverlay">
+      <div class="panel overlay-card">
+        <h2>Game Over</h2>
+        <p id="gameOverText">Попробуй снова!</p>
+        <div class="overlay-actions">
+          <button class="btn action-btn" id="overlayRestartBtn">Restart</button>
+          <button class="btn ghost-btn" id="resetProgressBtn">Начать с 1 уровня</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>
