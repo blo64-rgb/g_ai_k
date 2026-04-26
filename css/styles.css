@@ -53,11 +53,11 @@ body {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: clamp(3px, 0.8vw, 6px);
-  padding: clamp(4px, 1vw, 6px);
+  padding: clamp(2px, 0.6vw, 4px);
 }
 
 .stat {
-  padding: clamp(4px, 0.7vw, 6px) 4px;
+  padding: clamp(2px, 0.55vw, 4px) 3px;
   border-radius: 8px;
   background: rgba(0, 0, 0, 0.2);
   display: grid;
@@ -66,13 +66,13 @@ body {
 }
 
 .stat span {
-  font-size: clamp(10px, 1.9vw, 12px);
+  font-size: clamp(9px, 1.7vw, 11px);
   opacity: 0.8;
   line-height: 1;
 }
 
 .stat strong {
-  font-size: clamp(11px, 2.2vw, 14px);
+  font-size: clamp(10px, 2vw, 13px);
   color: var(--neon-main);
   text-shadow: 0 0 8px rgba(0, 255, 204, 0.8);
   line-height: 1;
@@ -84,12 +84,18 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.play-area {
   position: relative;
+  width: min(100%, 100cqh);
+  aspect-ratio: 1 / 1;
+  max-height: 100%;
 }
 
 #gameCanvas {
-  width: min(100%, 100cqh);
-  height: min(100%, 100cqw);
+  width: 100%;
+  height: 100%;
   border-radius: 16px;
   border: 1px solid rgba(0, 255, 204, 0.35);
   background: rgba(5, 5, 10, 0.8);
@@ -236,12 +242,12 @@ body {
 }
 
 .side-drawer {
-  position: fixed;
-  inset: 0;
-  background: rgba(2, 2, 10, 0.45);
-  display: grid;
-  justify-items: start;
-  align-items: stretch;
+  position: absolute;
+  left: 2mm;
+  top: 50%;
+  transform: translateY(-50%);
+  height: calc(100% - 4mm);
+  display: block;
   z-index: 20;
 }
 
@@ -250,9 +256,9 @@ body {
 }
 
 .drawer-card {
-  width: min(82vw, 320px);
+  width: min(72vw, 300px);
   height: 100%;
-  border-radius: 0 16px 16px 0;
+  border-radius: 14px;
   padding: 10px;
   overflow: auto;
 }
@@ -315,7 +321,11 @@ body {
   .stats-panel {
     grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 3px;
-    padding: 3px;
+    padding: 2px;
+  }
+
+  .drawer-card {
+    width: min(78vw, 270px);
   }
 
   .controls-grid {
