@@ -65,6 +65,13 @@ body {
   text-align: center;
 }
 
+.stat-coins {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
 .stat span {
   font-size: clamp(9px, 1.7vw, 11px);
   opacity: 0.8;
@@ -110,18 +117,18 @@ body {
   align-items: center;
 }
 
-.shop-fab {
-  position: absolute;
-  left: 2mm;
-  top: 2mm;
-  z-index: 3;
-  width: clamp(34px, 8vw, 44px);
-  height: clamp(34px, 8vw, 44px);
-  border-radius: 10px;
+.shop-inline-btn {
+  width: clamp(22px, 4.8vw, 28px);
+  height: clamp(22px, 4.8vw, 28px);
+  border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.22);
   background: rgba(12, 12, 24, 0.56);
   color: var(--text-main);
   backdrop-filter: blur(10px);
+  padding: 0;
+  display: inline-grid;
+  place-items: center;
+  font-size: clamp(12px, 2.4vw, 15px);
 }
 
 .controls-grid {
@@ -242,12 +249,11 @@ body {
 }
 
 .side-drawer {
-  position: absolute;
-  left: 2mm;
-  top: 50%;
-  transform: translateY(-50%);
-  height: calc(100% - 4mm);
-  display: block;
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(2, 2, 10, 0.4);
   z-index: 20;
 }
 
@@ -256,8 +262,8 @@ body {
 }
 
 .drawer-card {
-  width: min(72vw, 300px);
-  height: 100%;
+  width: min(82vw, 340px);
+  max-height: min(78vh, 620px);
   border-radius: 14px;
   padding: 10px;
   overflow: auto;
@@ -325,7 +331,7 @@ body {
   }
 
   .drawer-card {
-    width: min(78vw, 270px);
+    width: min(86vw, 290px);
   }
 
   .controls-grid {
