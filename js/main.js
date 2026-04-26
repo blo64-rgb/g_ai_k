@@ -13,6 +13,7 @@ if (tg) {
 const canvas = document.getElementById("gameCanvas");
 const ui = new UI();
 const game = new Game(canvas, ui);
+let shopOpen = false;
 
 const savedLevelState = loadLevelState();
 const sessionCheckpoint = loadSessionCheckpoint();
@@ -22,9 +23,18 @@ const initialSeed = sessionCheckpoint ||
         level: savedLevelState.level,
         score: savedLevelState.score,
         speedMs: savedLevelState.speedMs,
+        selectedSkin: savedLevelState.selectedSkin,
+        unlockedSkins: savedLevelState.unlockedSkins,
         counters: savedLevelState.counters,
       }
-    : { level: 1, score: 0, speedMs: BASE_SPEED_MS, counters: { banana: 0, cherry: 0, diamond: 0 } });
+    : {
+        level: 1,
+        score: 0,
+        speedMs: BASE_SPEED_MS,
+        selectedSkin: "neon",
+        unlockedSkins: ["neon"],
+        counters: { banana: 0, cherry: 0, diamond: 0 },
+      });
 
 ui.init(savedLevelState, () => {
   game.start(initialSeed);
@@ -35,6 +45,16 @@ bindControls({
   onPause: () => game.togglePause(),
   onRestart: () => game.restartFromCheckpoint(),
   onResetProgress: () => game.resetAllProgress(),
+  onToggleShop: () => {
+    shopOpen = !shopOpen;
+    ui.toggleShop(shopOpen);
+  },
+  onCloseShop: () => {
+    shopOpen = false;
+    ui.toggleShop(false);
+  },
+  onBuySkin: (skinId) => game.buyOrSelectSkin(skinId),
+  onExchange: (type) => game.exchangeCollectible(type),
 });
 
 window.addEventListener("resize", () => game.updateCanvasSize());
