@@ -209,6 +209,48 @@ export class Game {
       this.ctx.shadowColor = COLORS.snake;
       this.ctx.fillRect(segment.x * this.cellSize, segment.y * this.cellSize, this.cellSize, this.cellSize);
       this.ctx.restore();
+      if (isHead) this.drawSnakeHeadDetails(segment);
     });
+  }
+
+  drawSnakeHeadDetails(segment) {
+    const x = segment.x * this.cellSize;
+    const y = segment.y * this.cellSize;
+    const size = this.cellSize;
+    const eyeRadius = Math.max(1.6, size * 0.09);
+    const pupilRadius = Math.max(1, size * 0.045);
+    const dir = this.snake.direction;
+
+    const forward = { x: dir.x || 0, y: dir.y || 0 };
+    const side = { x: -forward.y, y: forward.x };
+    const centerX = x + size / 2 + forward.x * size * 0.16;
+    const centerY = y + size / 2 + forward.y * size * 0.16;
+
+    const eye1 = {
+      x: centerX + side.x * size * 0.18,
+      y: centerY + side.y * size * 0.18,
+    };
+    const eye2 = {
+      x: centerX - side.x * size * 0.18,
+      y: centerY - side.y * size * 0.18,
+    };
+
+    this.ctx.save();
+    this.ctx.fillStyle = "#f2feff";
+    this.ctx.shadowBlur = 6;
+    this.ctx.shadowColor = "#b7ffff";
+    this.ctx.beginPath();
+    this.ctx.arc(eye1.x, eye1.y, eyeRadius, 0, Math.PI * 2);
+    this.ctx.arc(eye2.x, eye2.y, eyeRadius, 0, Math.PI * 2);
+    this.ctx.fill();
+
+    const pupilOffsetX = forward.x * eyeRadius * 0.45;
+    const pupilOffsetY = forward.y * eyeRadius * 0.45;
+    this.ctx.fillStyle = "#0f0f1a";
+    this.ctx.beginPath();
+    this.ctx.arc(eye1.x + pupilOffsetX, eye1.y + pupilOffsetY, pupilRadius, 0, Math.PI * 2);
+    this.ctx.arc(eye2.x + pupilOffsetX, eye2.y + pupilOffsetY, pupilRadius, 0, Math.PI * 2);
+    this.ctx.fill();
+    this.ctx.restore();
   }
 }
