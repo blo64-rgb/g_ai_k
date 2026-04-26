@@ -138,6 +138,20 @@ body {
   box-shadow: 0 0 10px rgba(0, 255, 204, 0.45);
 }
 
+.dir-btn {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  padding: 0;
+  display: inline-grid;
+  place-items: center;
+  font-size: 22px;
+  font-weight: 500;
+  color: rgba(232, 248, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 0 6px rgba(0, 255, 204, 0.25);
+}
+
 .action-btn {
   border-color: rgba(255, 0, 119, 0.45);
   box-shadow: 0 0 10px rgba(255, 0, 119, 0.35);
@@ -193,5 +207,18 @@ body {
   .control-group.horizontal,
   .control-group.center {
     justify-items: center;
+  }
+
+  .dir-btn {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    font-size: 20px;
+  }
+
+  .action-btn {
+    min-width: 84px;
+    padding: 8px 10px;
+    font-size: 13px;
   }
 }
