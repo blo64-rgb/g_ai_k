@@ -47,15 +47,20 @@ export class UI {
     this.shopDrawer.classList.toggle("hidden", !open);
   }
 
-  renderSkins({ unlockedSkins, selectedSkin, score }) {
+  switchShopTab(tab) {
+    document.querySelectorAll("[data-tab]").forEach((btn) => {
+      btn.classList.toggle("active", btn.dataset.tab === tab);
+    });
+    document.querySelectorAll("[data-panel]").forEach((panel) => {
+      panel.classList.toggle("hidden", panel.dataset.panel !== tab);
+    });
+  }
+
+  renderSkins({ selectedSkin }) {
     document.querySelectorAll("[data-skin-id]").forEach((button) => {
       const skinId = button.dataset.skinId;
-      const owned = unlockedSkins.includes(skinId);
       const active = selectedSkin === skinId;
-      button.classList.toggle("owned", owned);
       button.classList.toggle("active", active);
-      button.textContent = owned ? `${skinId} ${active ? "✓" : ""}` : `${skinId} (1000 🪙)`;
-      button.disabled = !owned && score < 1000;
     });
   }
 }
