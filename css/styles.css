@@ -245,6 +245,10 @@ body {
   z-index: 20;
 }
 
+.side-drawer.hidden {
+  display: none;
+}
+
 .drawer-card {
   width: min(82vw, 320px);
   height: 100%;
