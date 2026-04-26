@@ -10,7 +10,11 @@
   <body>
     <div class="app">
       <header class="panel stats-panel">
-        <div class="stat"><span aria-label="Монеты">🪙</span><strong id="scoreValue">0</strong></div>
+        <div class="stat stat-coins">
+          <button class="shop-inline-btn" id="shopToggleBtn" aria-label="Открыть магазин">☰</button>
+          <span aria-label="Монеты">🪙</span>
+          <strong id="scoreValue">0</strong>
+        </div>
         <div class="stat"><span>LVL</span><strong id="levelValue">1/100</strong></div>
         <div class="stat"><span aria-label="Скорость">👟</span><strong id="speedValue">0</strong></div>
         <div class="stat"><span aria-label="Бананы">🍌</span><strong id="bananaValue">0</strong></div>
@@ -20,7 +24,6 @@
 
       <main class="board-wrap">
         <div class="play-area">
-          <button class="shop-fab" id="shopToggleBtn" aria-label="Открыть магазин">☰</button>
           <canvas id="gameCanvas" aria-label="Игровое поле змейки"></canvas>
           <aside class="side-drawer hidden" id="shopDrawer">
             <div class="panel drawer-card">
