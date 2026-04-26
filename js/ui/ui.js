@@ -25,7 +25,7 @@ export class UI {
   }
 
   togglePauseLabel(paused) {
-    this.pauseBtn.textContent = paused ? "Продолжить" : "Пауза";
+    this.pauseBtn.textContent = paused ? "▶" : "⏸";
   }
 
   showGameOver(state) {
