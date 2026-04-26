@@ -44,16 +44,15 @@ export const STORAGE_KEYS = {
 export const SKIN_PRICE = 1000;
 
 export const SNAKE_SKINS = {
-  neon: { id: "neon", name: "Neon", body: "#00ffcc", head: "#5ffff0", eye: "#f2feff" },
-  plasma: { id: "plasma", name: "Plasma", body: "#b388ff", head: "#d6b3ff", eye: "#ffffff" },
-  ember: { id: "ember", name: "Ember", body: "#ff7a18", head: "#ffb067", eye: "#fff4e6" },
-  frost: { id: "frost", name: "Frost", body: "#70d6ff", head: "#b5ecff", eye: "#f8ffff" },
+  clown: { id: "clown", name: "Clown", body: "#ffd166", head: "#ff7aa2", eye: "#ffffff", accent: "#ff2e63" },
+  hardpunk: { id: "hardpunk", name: "Hard Punk", body: "#5e5e72", head: "#9aa0b5", eye: "#f8f9ff", accent: "#ff0077" },
+  neo: { id: "neo", name: "Neo", body: "#00ffcc", head: "#5ffff0", eye: "#f2feff", accent: "#70d6ff" },
 };
 
 // Exchange ratio based on original reward value:
-// 1 banana = 2 points, 1 cherry = 3 points, 1 diamond = 10 points.
+// 1 banana = 5 points, 1 cherry = 10 points, 1 diamond = 20 points.
 export const EXCHANGE_RATES = {
-  banana: 2,
-  cherry: 3,
-  diamond: 10,
+  banana: 5,
+  cherry: 10,
+  diamond: 20,
 };
