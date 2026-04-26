@@ -33,21 +33,41 @@
                 <button class="btn ghost-btn drawer-close" id="shopCloseBtn" aria-label="Закрыть магазин">✕</button>
               </div>
 
-              <section class="drawer-section">
-                <h4>Скины змейки (1000 🪙)</h4>
+              <div class="drawer-tabs">
+                <button class="btn drawer-tab active" data-tab="skins">🎭 Скины</button>
+                <button class="btn drawer-tab" data-tab="exchange">💱 Обмен</button>
+              </div>
+
+              <section class="drawer-section tab-panel" data-panel="skins">
+                <h4>Стили змейки</h4>
                 <div class="skin-list" id="skinList">
-                  <button class="btn skin-btn" data-skin-id="plasma">Plasma</button>
-                  <button class="btn skin-btn" data-skin-id="ember">Ember</button>
-                  <button class="btn skin-btn" data-skin-id="frost">Frost</button>
+                  <button class="btn skin-btn" data-skin-id="clown">
+                    <span class="skin-preview clown">
+                      <span class="seg body"></span><span class="seg body"></span><span class="seg head"></span><span class="cap"></span>
+                    </span>
+                    <span class="skin-name">Клоун</span>
+                  </button>
+                  <button class="btn skin-btn" data-skin-id="hardpunk">
+                    <span class="skin-preview hardpunk">
+                      <span class="seg body"></span><span class="seg body"></span><span class="seg head"></span><span class="spike s1"></span><span class="spike s2"></span>
+                    </span>
+                    <span class="skin-name">Хард-панк</span>
+                  </button>
+                  <button class="btn skin-btn" data-skin-id="neo">
+                    <span class="skin-preview neo">
+                      <span class="seg body"></span><span class="seg body"></span><span class="seg head"></span>
+                    </span>
+                    <span class="skin-name">Нео</span>
+                  </button>
                 </div>
               </section>
 
-              <section class="drawer-section">
-                <h4>Обмен на очки</h4>
+              <section class="drawer-section tab-panel hidden" data-panel="exchange">
+                <h4>Обмен в монеты</h4>
                 <div class="exchange-list">
-                  <button class="btn exchange-btn" data-exchange="banana">🍌 → 🪙</button>
-                  <button class="btn exchange-btn" data-exchange="cherry">🍒 → 🪙</button>
-                  <button class="btn exchange-btn" data-exchange="diamond">💎 → 🪙</button>
+                  <button class="btn exchange-btn" data-exchange="banana">🍌 1 = 5 🪙</button>
+                  <button class="btn exchange-btn" data-exchange="cherry">🍒 1 = 10 🪙</button>
+                  <button class="btn exchange-btn" data-exchange="diamond">💎 1 = 20 🪙</button>
                 </div>
               </section>
             </div>
