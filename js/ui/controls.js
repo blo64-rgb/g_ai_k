@@ -5,7 +5,17 @@ const DIRECTIONS = {
   right: { x: 1, y: 0 },
 };
 
-export function bindControls({ onDirection, onPause, onRestart, onResetProgress, onToggleShop, onCloseShop, onBuySkin, onExchange }) {
+export function bindControls({
+  onDirection,
+  onPause,
+  onRestart,
+  onResetProgress,
+  onToggleShop,
+  onCloseShop,
+  onBuySkin,
+  onExchange,
+  onSwitchTab,
+}) {
   // --- Direction controls ---
   document.querySelectorAll("[data-direction]").forEach((button) => {
     button.addEventListener("click", () => {
@@ -28,6 +38,9 @@ export function bindControls({ onDirection, onPause, onRestart, onResetProgress,
   });
   document.querySelectorAll("[data-exchange]").forEach((button) => {
     button.addEventListener("click", () => onExchange(button.dataset.exchange));
+  });
+  document.querySelectorAll("[data-tab]").forEach((button) => {
+    button.addEventListener("click", () => onSwitchTab(button.dataset.tab));
   });
 
   // --- Keyboard support ---
